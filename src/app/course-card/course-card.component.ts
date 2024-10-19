@@ -15,9 +15,7 @@ export class CourseCardComponent {
   })
   course: Course;
 
-  @Input ({
-    required: true
-  })
+  @Input ()
   index: number;
 
   @Input () 
