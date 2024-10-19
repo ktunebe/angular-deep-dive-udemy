@@ -5,10 +5,56 @@
 
 </div>
 
+<!-- Pipes - date, case, number (decimals), currency, rate, slice, json, keyvalue -->
+<div class="demo">
+    <div>Start Date: {{ startDate | date: 'MMM dd, yyyy' }}</div>
+    <div>Title: {{ title | titlecase }}</div>
+    <div>Price as number: {{ price | number: '3.3-5' }}</div>
+    <div>Price as currency: {{ price | currency: 'GBP' }}</div>
+    <div>Rate: {{ rate | percent }}</div>
+    <br>
+    @for (course of courses | slice: 0:3; track course.id) {
+        <div>{{ course | json }},</div>
+        <br>
+    }
+    @for (keyValue of course | keyvalue; track $index) {
+        <div>{{ keyValue.key }}: {{ keyValue.value }}</div>
+
+    }
+</div>
+
 <div class="courses">
-    <course-card [course]="coreCourse"></course-card>
-    <course-card [course]="rxjsCourse"></course-card>
-    <course-card [course]="ngrxCourse"></course-card>
+    <!-- Do not need to declare variables for $index, $count, etc. -->
+    @for (course of courses; track trackCourse; let index = $index; let count = $count; let last = $last; let odd= $odd) {
+        <!-- Can do this instead, or see $even below in course-card tag -->
+        @if ($first) {
+            <h1>Count: {{count}}</h1>
+        }
+        <h1>{{count - index}}</h1>
+        <course-card 
+        [course]="course"
+        [index]="index"
+        [class.is-first]="$first"
+        [class.is-last]="last"
+        [class.is-even]="$even"
+        [class.is-odd]="odd"
+        (courseSelected)="onCourseSelected($event)" />
+    }
+    @empty {
+        <h1>No courses found!</h1>
+    }
+
+    <!-- PREVIOUSLY USED ngFor -->
+     <course-card *ngFor="let course of courses; index as i; first as isFirst; last as isLast; even as isEven; odd as isOdd;"
+     [course]="course"
+     [class.is-first]="isFirst"
+     [class.is-last]="isLast"
+     [class.is-even]="isEven"
+     [class.is-odd]="isOdd"
+     [cardIndex]="i + 1"
+     (courseSelected)="onCourseSelected($event)"
+     />
+
 
 </div>
 
