@@ -3,7 +3,7 @@
   <div class="course-title">
     {{index + 1 || ''}} {{course.description}}
   </div>
-  <img width="300" alt="Angular Logo"
+  <img #courseImage width="300" alt="Angular Logo"
     [src]="course.iconUrl" >
   <div class="course-description">
       {{course.longDescription}}
