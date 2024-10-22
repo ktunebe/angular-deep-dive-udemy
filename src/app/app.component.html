@@ -5,23 +5,29 @@
   />
 </div>
 
-<div class="courses" #container>
-    <button (click)="onCoursesEdited()">Edit Courses</button>
-  <!-- Used for @ViewChild in app.component.ts -->
-  <course-card
-    #cardRef1
-    [course]="courses[0]"
-    (courseSelected)="onCourseSelected($event)"
-  />
+<div class="courses" *ngIf="courses[0] as course">
+    <course-card 
+        (courseSelected)="onCourseSelected($event)" [course]="course">
 
-  <course-card
-    #cardRef2
-    [course]="courses[1]"
-    (courseSelected)="onCourseSelected($event)"
-  />
+        <div class="course-image" #courseImage>
+            <img width="300" alt="Angular Logo"
+            [src]="course.iconUrl" >
+            <h5>Total Lessons: {{course.lessonsCount}}</h5>
+        </div>
 
-  <!-- Used for @ViewChildren in app.component.ts -->
-   @for (course of courses; track course.id) {
-    <course-card [course]="course" (courseSelected)="onCourseSelected($event)" />
-   }
+        <div class="course-description">
+            {{course.longDescription}}
+        </div>
+
+        Edit Description: <textarea></textarea>
+        
+
+    </course-card>
+
+    <course-card 
+        (courseSelected)="onCourseSelected($event)" [course]="courses[1]">
+        
+        <h5>Total Lessons: 69</h5>
+
+    </course-card>
 </div>

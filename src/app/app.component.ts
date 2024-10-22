@@ -2,6 +2,7 @@ import { Component, ViewChild, ViewChildren, ElementRef, AfterViewInit, QueryLis
 import {COURSES} from '../db-data';
 import { Course } from './model/course';
 import { CourseCardComponent } from './course-card/course-card.component';
+import { CourseImageComponent } from './course-image/course-image.component';
 
 @Component({
   selector: 'app-root',

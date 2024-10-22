@@ -1,13 +1,16 @@
-<div class="course-card" [ngClass]="cardClasses()">
+<div class="course-card" [ngClass]="cardClasses()" *ngIf="course" #container>
   
   <div class="course-title">
-    {{index + 1 || ''}} {{course.description}}
+    {{cardIndex || ''}} {{course.description}}
   </div>
-  <img #courseImage width="300" alt="Angular Logo"
-    [src]="course.iconUrl" >
-  <div class="course-description">
-      {{course.longDescription}}
-  </div>
+
+  <!-- ng-content tag: Projects content from the parent component content (what is between the opening and closing tags. In this case, in app.component.html it would be: <course-card> *CONTENT* </course-card) -->
+  <!-- select will choose based on tag, class, etc. which content is displayed -->
+  <ng-content select="course-image"></ng-content>
+  <!-- Can use multi-slot projection - multiple selectors -->
+  <ng-content select=".course-description"></ng-content>
+  <!-- Any remaining content - no selectors -->
+  <ng-content></ng-content>
 
   <div class="course-category">
     @switch (course.category) {
